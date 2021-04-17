@@ -1,6 +1,6 @@
 export enum Pattern {
-  Short = '${noun}${separator}${number}',
-  Long = '${adjective}${separator}${noun}${separator}${number}',
+  Short = '(noun)(separator)(number)',
+  Long = '(adjective)(separator)(noun)(separator)(number)',
 }
 
 export type RandomNicknameOptions = {
@@ -27,17 +27,17 @@ interface IRandomResultElement {
   value: unknown;
 }
 
-interface RandomResultElementString extends IRandomResultElement {
+export interface RandomResultElementString extends IRandomResultElement {
   type: 'word' | 'separator';
   value: string;
 }
 
-interface RandomResultElementNumber extends IRandomResultElement {
+export interface RandomResultElementNumber extends IRandomResultElement {
   type: 'number';
   value: number;
 }
 
-interface RandomResultElementWord extends RandomResultElementString {
+export interface RandomResultElementWord extends RandomResultElementString {
   wordType: WordType;
 }
 

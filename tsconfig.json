@@ -73,6 +73,7 @@
     "src"
   ],
   "exclude": [
-    "src/scripts"
+    "src/scripts",
+    "*.test.ts"
   ]
 }

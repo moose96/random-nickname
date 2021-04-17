@@ -1,7 +1,16 @@
-import { RandomNicknameOptions, RandomNickname, Pattern, RandomResultElement } from './src/types';
+import {
+  RandomNicknameOptions,
+  RandomNickname,
+  Pattern,
+  RandomResultElement,
+  RandomResultElementWord,
+} from './src/types';
 import { resolvePattern, randomizeFromPatternElement, filterResultObjects } from './src/lib';
 
-const defaultOptions: RandomNicknameOptions = {
+type RandomNicknameOptionsEx = Required<Omit<RandomNicknameOptions, 'wordMaxLength'>> &
+  Pick<RandomNicknameOptions, 'wordMaxLength'>;
+
+const defaultOptions: RandomNicknameOptionsEx = {
   pattern: Pattern.Long,
   separators: ['', '_', '-', '.'],
   minNumber: 1,
@@ -10,28 +19,37 @@ const defaultOptions: RandomNicknameOptions = {
   changeCase: true,
 };
 
-export default function randomNickname(options: RandomNicknameOptions): RandomNickname {
-  const _options = { ...defaultOptions, ...options };
+export default function randomNickname(
+  options: RandomNicknameOptions = defaultOptions
+): RandomNickname {
+  const _options: RandomNicknameOptionsEx = { ...defaultOptions, ...options };
   const {
     pattern,
     separators,
     wordMaxLength,
     minNumber,
     maxNumber,
-    duplicateLetters,
-    changeCase,
+    /*duplicateLetters,
+    changeCase,*/
   } = _options;
 
-  const resultString = pattern;
+  let resultString = pattern;
   const resultObjects = resolvePattern(pattern).map<RandomResultElement>(patternElement =>
     randomizeFromPatternElement(patternElement, { separators, wordMaxLength, minNumber, maxNumber })
   );
 
   resultObjects.forEach(object => {
     const { type, value } = object;
+    let replaceString = '';
+
+    if (type === 'word') {
+      replaceString = `(${(object as RandomResultElementWord).wordType})`;
+    } else {
+      replaceString = `(${type})`;
+    }
 
     // eslint-disable-next-line no-useless-escape
-    resultString.replace(`\$\{${type}\}`, value.toString());
+    resultString = resultString.replace(replaceString, value.toString());
   });
 
   return {

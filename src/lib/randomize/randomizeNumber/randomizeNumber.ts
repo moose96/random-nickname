@@ -7,5 +7,5 @@ export default function randomizeNumber({ minNumber, maxNumber }: RandomizeNumbe
   if (minNumber < 0 || maxNumber > 999) {
     throw Error(`[randomizeNumber]: bounds out of range: min: ${minNumber}, max: ${maxNumber}`);
   }
-  return Math.floor(Math.random() * (maxNumber - minNumber)) + maxNumber;
+  return Math.floor(Math.random() * (maxNumber - minNumber)) + minNumber;
 }

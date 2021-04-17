@@ -1,1 +1,1 @@
-export { default } from './randomizeFromPatterElement';
+export { default } from './randomizeFromPatternElement';
