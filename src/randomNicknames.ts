@@ -4,8 +4,8 @@ import {
   Pattern,
   RandomResultElement,
   RandomResultElementWord,
-} from './src/types';
-import { resolvePattern, randomizeFromPatternElement, filterResultObjects } from './src/lib';
+} from './types';
+import { resolvePattern, randomizeFromPatternElement, filterResultObjects } from './lib';
 
 type RandomNicknameOptionsEx = Required<Omit<RandomNicknameOptions, 'wordMaxLength'>> &
   Pick<RandomNicknameOptions, 'wordMaxLength'>;
@@ -48,7 +48,6 @@ export default function randomNickname(
       replaceString = `(${type})`;
     }
 
-    // eslint-disable-next-line no-useless-escape
     resultString = resultString.replace(replaceString, value.toString());
   });
 

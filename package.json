@@ -2,9 +2,10 @@
   "name": "random-nickname",
   "version": "0.1.0",
   "description": "A tool which generates random nicknames",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc --build"
   },
   "keywords": [
     "random",
